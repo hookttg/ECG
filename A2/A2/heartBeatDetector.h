@@ -8,14 +8,12 @@
 
 #ifndef HEARTBEATDETECTOR_H_
 #define HEARTBEATDETECTOR_H_
+#include "timer.h"
 
 unsigned char  adc_data;
 int lastSignal=0;
 int currentSignal=0;
-volatile static int beat=0;
-volatile static int count=0;
-static unsigned char beats[3]; // this vector stores the digits for time elapsed in bits
-
+volatile static int heartBeat=0;
 
 ISR(ADC_vect)
 {
@@ -32,17 +30,8 @@ ISR(ADC_vect)
 			//display('2');
 		}else{
 			lastSignal = currentSignal;
-			int beatsInBits = count++;
-			beats[0] = (beatsInBits%10)+'0';
-			beats[1] = ((beatsInBits%100-beatsInBits%10)/10)+'0';
-			beats[2] = ((beatsInBits%1000-beatsInBits%100)/100)+'0';	//get each bit's value of letter_num
-			initialLCD();	// These two lines make a new page
-			returnLCD();	//and move cursor to first position
-			
-			display(beats[2]);
-			display(beats[1]);
-			display(beats[0]);		// Display number of digits
-			//_delay_ms(200);
+			heartBeat++;
+			updateLCD();
 		}
 		
 	}

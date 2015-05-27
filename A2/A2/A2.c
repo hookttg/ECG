@@ -2,28 +2,13 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include <avr/interrupt.h>
-#include "myLCD.h"
-#include "heartBeatDetector.h"
 
 #define F_CPU 16000000UL
 
-
-volatile static int sec=0;
-volatile static int min=0;
-
-
-
-
-
-ISR(TIMER0_OVF_vect)
-{
-	
-//test
-
-}
-
-
-
+#include "myLCD.h"
+#include "heartBeatDetector.h"
+#include "timer.h"
+#include "printOnLCD.h"
 
 
 int main(void)
@@ -37,14 +22,14 @@ int main(void)
 	TCNT0 = 0;			// set 0 as initial value of timer0
 	TIMSK = 0x01;	    //unmask  timer0 overflow interrupt
 			
-	initialLCD();	// call this function to initial LCD screen
-	returnLCD();	// call this function to move cursor to first (initial) position
+	startLCD();	// call this function to initial LCD screen
+	//returnLCD();	// call this function to move cursor to first (initial) position
 			
 	asm("sei");   // enable global interrupt
 	
 	
 	while(1){
-		
+		updateLCD();
 	}
 
 }

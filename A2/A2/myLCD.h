@@ -9,7 +9,7 @@
 #ifndef MYLCD_H_
 #define MYLCD_H_
 
-void initialLCD()  // this function is used to initial LCD screen and it will be called in initial steps
+void startLCD()  // this function is used to initial LCD screen and it will be called in initial steps
 {
 	//setting up port direction on microprocessor
 	DDRC=0b00110000; //portc has RS on bit 4, and enable on bit 5
@@ -40,7 +40,29 @@ void initialLCD()  // this function is used to initial LCD screen and it will be
 }
 void returnLCD()   // this function is used to move the cursor to first (initial) position
 {
+	DDRC=0b00110000; //portc has RS on bit 4, and enable on bit 5
+	DDRD=0xFF;
+	_delay_ms(100); //wait a little bit of time for the LCD to power up properly.
+	
+	//initialisation of LCD screen
+	PORTC=0b00100000; //enable is high, RS is low (I'm going to send a command)
 	_delay_ms(2);
+	PORTD=0b00011100; //command1: function set (5x7 dot format, 2 line mode, 8-bit data)
+	_delay_ms(2);
+	PORTC=0b00000000; //enable is low, RS stays low (it will execute the command now)
+	_delay_ms(2);
+// 	PORTC=0b00100000; //enable is high, RS is low (I'm going to send another command)
+// 	_delay_ms(2);
+// 	PORTD=0b11110000; //command2: display on / cursor (Blink ON, underline ON, Display ON - you can use different settings if you like)
+// 	_delay_ms(2);
+// 	PORTC=0b00000000; //enable is low,  RS stays low (it will execute the command now)
+// 	_delay_ms(2);
+// 	PORTC=0b00100000; //enable is high, RS is low (I'm going to send another command)
+// 	_delay_ms(2);
+// 	PORTD=0b01100000; //command 3: character entry mode with increment and display shift OFF
+// 	_delay_ms(2);
+// 	PORTC=0b00000000; //enable is low, RS stays low (it will execute the command now)
+// 	_delay_ms(2);
 	PORTC=0b00100000; //enable is high, RS is low (I'm going to send another command)
 	_delay_ms(2);
 	PORTD=0b10000000; //command 4: clear screen
@@ -54,8 +76,13 @@ void returnLCD()   // this function is used to move the cursor to first (initial
 	PORTC=0b00000000; //enable is low
 	_delay_ms(2);
 	PORTC=0b00100000; //enable is high
+	
+	//_delay_ms(100); //wait a little longer after initialisation (may not be required, but it seems to help)
+	
+	//now i am going to enter a real character
+	PORTC=0b00110000; //enable is high, with RS high (I'm going to send data)
 	_delay_ms(5);
-	// -.-.-
+	
 
 }
 
@@ -157,7 +184,6 @@ case 'C':   {	PORTD=0B11000010;
 							_delay_ms(5);
 							PORTC=0b00110000; //enable is high, with RS high (ready to send more data)
  }	
-
 
 
 
