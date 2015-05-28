@@ -72,21 +72,24 @@ void showNumberOfBeats () {
 
 void showHeartRate () {
 	
-	display('H');
-	display('R');
+		display('H');
+		display('R');
 	
-	//if (t == 2) {
-	HR = ((heartBeatInLast15Sec/15)*60);
-	//}
-	//heartBeatInLast15Sec = 0; // reset this every 15 seconds
-	calulateHeartRate = false;
-	HRinDigits[0] = (HR%10)+'0';
-	HRinDigits[1] = ((HR%100-HR%10)/10)+'0';
-	HRinDigits[2] = ((HR%1000-HR%100)/100)+'0';
+		if (calulateHeartRate==true) {
+			
+			HR = (heartBeatInLast15Sec*60)/15;
+			heartBeatInLast15Sec = 0; // reset this every 15 seconds to count the number of beats for next 15 seconds
+			
+		}
 	
-	display(HRinDigits[2]);
-	display(HRinDigits[1]);
-	display(HRinDigits[0]);
+		calulateHeartRate = false;
+		HRinDigits[0] = (HR%10)+'0';
+		HRinDigits[1] = ((HR%100-HR%10)/10)+'0';
+		HRinDigits[2] = ((HR%1000-HR%100)/100)+'0';
+	
+		display(HRinDigits[2]);
+		display(HRinDigits[1]);
+		display(HRinDigits[0]);
 
 }
 

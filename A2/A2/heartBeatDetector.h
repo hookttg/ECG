@@ -8,12 +8,13 @@
 
 #ifndef HEARTBEATDETECTOR_H_
 #define HEARTBEATDETECTOR_H_
-#include "timer.h"
+
 
 unsigned char  adc_data;
 int lastSignal=0;
 int currentSignal=0;
 volatile static int heartBeat=0;
+volatile static int heartBeatInLast15Sec=0;
 
 ISR(ADC_vect)
 {
@@ -31,6 +32,7 @@ ISR(ADC_vect)
 		}else{
 			lastSignal = currentSignal;
 			heartBeat++;
+			heartBeatInLast15Sec++; // this will be set to 0 at t=15 in timer function
 			updateLCD();
 		}
 		

@@ -34,7 +34,7 @@ ISR(TIMER0_OVF_vect)
 		updateLCD();
 	}
 	
-	if (t==2){ // this will assist HR calculator to keep track of beats in last 15 seconds
+	if (t==15){ // this will assist HR calculator to keep track of beats in last 15 seconds
 		t=0;
 		calulateHeartRate = true; // this will alert the the HR calculator
 	}
