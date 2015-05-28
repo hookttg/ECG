@@ -51,18 +51,18 @@ void returnLCD()   // this function is used to move the cursor to first (initial
 	_delay_ms(2);
 	PORTC=0b00000000; //enable is low, RS stays low (it will execute the command now)
 	_delay_ms(2);
-// 	PORTC=0b00100000; //enable is high, RS is low (I'm going to send another command)
-// 	_delay_ms(2);
-// 	PORTD=0b11110000; //command2: display on / cursor (Blink ON, underline ON, Display ON - you can use different settings if you like)
-// 	_delay_ms(2);
-// 	PORTC=0b00000000; //enable is low,  RS stays low (it will execute the command now)
-// 	_delay_ms(2);
-// 	PORTC=0b00100000; //enable is high, RS is low (I'm going to send another command)
-// 	_delay_ms(2);
-// 	PORTD=0b01100000; //command 3: character entry mode with increment and display shift OFF
-// 	_delay_ms(2);
-// 	PORTC=0b00000000; //enable is low, RS stays low (it will execute the command now)
-// 	_delay_ms(2);
+ 	PORTC=0b00100000; //enable is high, RS is low (I'm going to send another command)
+ 	_delay_ms(2);
+ 	PORTD=0b11110000; //command2: display on / cursor (Blink ON, underline ON, Display ON - you can use different settings if you like)
+ 	_delay_ms(2);
+ 	PORTC=0b00000000; //enable is low,  RS stays low (it will execute the command now)
+ 	_delay_ms(2);
+ 	PORTC=0b00100000; //enable is high, RS is low (I'm going to send another command)
+ 	_delay_ms(2);
+ 	PORTD=0b01100000; //command 3: character entry mode with increment and display shift OFF
+ 	_delay_ms(2);
+ 	PORTC=0b00000000; //enable is low, RS stays low (it will execute the command now)
+ 	_delay_ms(2);
 	PORTC=0b00100000; //enable is high, RS is low (I'm going to send another command)
 	_delay_ms(2);
 	PORTD=0b10000000; //command 4: clear screen
