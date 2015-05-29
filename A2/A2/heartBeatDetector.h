@@ -22,7 +22,7 @@ ISR(ADC_vect)
 	adc_data = ADCH;	// read adc data
 	//adc_data = adc_data-512; // to calculate the energy of signal, we subtract it by 512
 	
-	if (adc_data > 0.8) {
+	if (adc_data > 2.9) {
 		PORTB=0b1111111;
 		//display('1');
 		

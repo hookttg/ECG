@@ -83,6 +83,7 @@ void showHeartRate () {
 		}
 	
 		calulateHeartRate = false;
+		
 		HRinDigits[0] = (HR%10)+'0';
 		HRinDigits[1] = ((HR%100-HR%10)/10)+'0';
 		HRinDigits[2] = ((HR%1000-HR%100)/100)+'0';
