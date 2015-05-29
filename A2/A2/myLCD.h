@@ -171,11 +171,7 @@ case 'C':   {	PORTD=0B11000010;
 							break;		} 
 		case ' ':	{	PORTD=0b00000100; //space
 							break;		} 		 							
-	    case 'd':	{	PORTD=0b00100110; //d
-							break;		}
-		case 'm':	{	PORTD=0b10110110; //m
-							break;		}
-		case 's':	{	PORTD=0b11001110; //s
+		case '.':	{	PORTD=0b01110100; //.
 							break;		}
 		 }	
 							
@@ -184,6 +180,20 @@ case 'C':   {	PORTD=0B11000010;
 							_delay_ms(5);
 							PORTC=0b00110000; //enable is high, with RS high (ready to send more data)
  }	
+
+
+
+void moveToNextLine () {
+	
+	_delay_ms(5);
+	PORTC=0b00100000;
+	_delay_ms(5);
+	PORTD=0b00000011;
+	_delay_ms(5);
+	PORTC=0b00000000;
+	
+}
+
 
 
 

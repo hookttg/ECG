@@ -16,49 +16,53 @@ static unsigned char minInDigits[2];
 static unsigned char beatsInDigits[3]; // this vector stores the digits for time elapsed in bits
 static unsigned char HRinDigits[3];
 volatile static int HR=0;
+static unsigned char MNNinDigits[3];
+
 
 void updateLCD () {
+	
 	returnLCD();
 	
-	display('T');
-	//display(':');
-	showTimeElapsed();
+	printTimeElapsed();
 	
-	display(' ');
-	showNumberOfBeats();
+	display(' '); // space
 	
-	display(' ');
-	showHeartRate();
+	printNumberOfBeats();
 	
-	//_delay_ms(200);
+	display(' '); // space
+	
+	printHeartRate();
+	
+	moveToNextLine();
+	
+	printMNN();
 	
 }
 
-void showTimeElapsed () {
+void printTimeElapsed () {
+		
+		display('T');
 		
 		int minInBits = min;
 		minInDigits[0] = (minInBits%10)+'0';
 		minInDigits[1] = ((minInBits%100-minInBits%10)/10)+'0';
 		
-		//display(minInDigits[1]);
 		display(minInDigits[0]);
 		display(':');
+		
 		int secInBits = sec;
 		secInDigits[0] = (secInBits%10)+'0';
 		secInDigits[1] = ((secInBits%100-secInBits%10)/10)+'0';
-		//secInBits[2] = ((NLb%1000-NLb%100)/100)+'0';	//get each bit's value of letter_num
-		//startLCD();
-		//returnLCD();
-		//PORTD=0b10000000; //command 4: clear screen
+		
 		display(secInDigits[1]);
-		display(secInDigits[0]);		// Display number digits
+		display(secInDigits[0]);		// Display number of digits
 				
 }
 
-void showNumberOfBeats () {
-	
+void printNumberOfBeats () {
+		
 		display('B');
-		//display(':');
+		
 		int beatsInBits = heartBeat;
 		beatsInDigits[0] = (beatsInBits%10)+'0';
 		beatsInDigits[1] = ((beatsInBits%100-beatsInBits%10)/10)+'0';
@@ -70,7 +74,7 @@ void showNumberOfBeats () {
 
 }
 
-void showHeartRate () {
+void printHeartRate () {
 	
 		display('H');
 		display('R');
@@ -94,6 +98,27 @@ void showHeartRate () {
 
 }
 
+
+void printMNN () {
+	
+	int MNN = 1000/HR;
+	
+	MNNinDigits[0] = (MNN%10)+'0';
+	MNNinDigits[1] = ((MNN%100-MNN%10)/10)+'0';
+	MNNinDigits[2] = ((MNN%1000-MNN%100)/100)+'0';
+	
+	display('M');
+	display('N');
+	display('N');
+	display(':');
+	display('0');
+	display('.');
+	
+	display(MNNinDigits[2]);
+	display(MNNinDigits[1]);
+	display(MNNinDigits[0]);
+	
+}
 
 
 
