@@ -11,31 +11,32 @@
 #include "heartBeatDetector.h"
 
 
-static unsigned char secInDigits[2];		// vector saves the amount of letters (in 2 bits)
-static unsigned char minInDigits[2];
-static unsigned char beatsInDigits[3]; // this vector stores the digits for time elapsed in bits
-static unsigned char HRinDigits[3];
+static unsigned int secInDigits[2];		// vector saves the amount of letters (in 2 bits)
+static unsigned int minInDigits[2];
+static unsigned int beatsInDigits[3]; // this vector stores the digits for time elapsed in bits
+static unsigned int HRinDigits[3];
 volatile static int HR=0;
-static unsigned char MNNinDigits[3];
 
+volatile static int MNN = 0;
+volatile static int sumOfTimeIntervals = 0;
 
 void updateLCD () {
 	
-	returnLCD();
-	
-	printTimeElapsed();
-	
-	display(' '); // space
-	
-	printNumberOfBeats();
-	
-	display(' '); // space
-	
-	printHeartRate();
-	
-	moveToNextLine();
-	
-	printMNN();
+ 	returnLCD();
+ 	
+ 	printTimeElapsed();
+ 	
+ 	display(' '); // space
+ 	
+ 	printNumberOfBeats();
+ 	
+ 	display(' '); // space
+ 	
+ 	printHeartRate();
+ 	
+ 	moveToNextLine();
+ 	
+ 	printMNN();
 	
 }
 
@@ -79,14 +80,14 @@ void printHeartRate () {
 		display('H');
 		display('R');
 	
-		if (calulateHeartRate==true) {
+		if (calculateHeartRate==true) {
 			
 			HR = (heartBeatInLast15Sec*60)/15;
 			heartBeatInLast15Sec = 0; // reset this every 15 seconds to count the number of beats for next 15 seconds
 			
 		}
 	
-		calulateHeartRate = false;
+		calculateHeartRate = false;
 		
 		HRinDigits[0] = (HR%10)+'0';
 		HRinDigits[1] = ((HR%100-HR%10)/10)+'0';
@@ -100,23 +101,41 @@ void printHeartRate () {
 
 
 void printMNN () {
+	int MNNinDigits[4];
+	sumOfTimeIntervals = 0;
 	
-	int MNN = 1000/HR;
+	if (calculateMNN==true) {
+		//1000/HR;
+		int i;
+		for (i =1; i < indexOfTimeIntervalVector; i++) {
+			// 10 beats will have 9 intervals. So we set i=1. This will 
+			sumOfTimeIntervals = sumOfTimeIntervals + timeIntervalForAllBeats[i];
+		}
+		
+		MNN = sumOfTimeIntervals/(indexOfTimeIntervalVector-1); // MNN will be calculated every 15 seconds
+		
+		calculateMNN = false;
+		
+	}
 	
 	MNNinDigits[0] = (MNN%10)+'0';
 	MNNinDigits[1] = ((MNN%100-MNN%10)/10)+'0';
 	MNNinDigits[2] = ((MNN%1000-MNN%100)/100)+'0';
+	MNNinDigits[3] = ((MNN%10000-MNN%1000)/1000)+'0';
 	
 	display('M');
 	display('N');
 	display('N');
 	display(':');
-	display('0');
-	display('.');
+	//display('0');
 	
+	
+	display(MNNinDigits[3]);
+	display('.');
 	display(MNNinDigits[2]);
 	display(MNNinDigits[1]);
 	display(MNNinDigits[0]);
+	
 	
 }
 
