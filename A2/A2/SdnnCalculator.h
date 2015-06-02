@@ -1,13 +1,11 @@
-/*
- * SdnnCalculator.h
- *
- * Created: 3/06/2015 1:26:53 am
- *  Author: Tanzim
- */ 
-
 
 #ifndef SDNNCALCULATOR_H_
 #define SDNNCALCULATOR_H_
+
+volatile unsigned int SDNNinDigits[4];
+volatile static unsigned int SDNN = 0;
+volatile static int sumOfTimeIntervals = 0;
+volatile static unsigned int variance = 0;
 
 
 // this function will calculate and print SDNN
@@ -37,12 +35,14 @@ void printSDNN () {
 		
 	}
 	
-	SDNNinDigits[0] = (SDNN%10)+'0';
+	// the LCD displays data bit by bit. So I am separating the decimal value to 3 bits.
+	
+	SDNNinDigits[0] = (SDNN%10)+'0';// Print function takes input char. So i am adding zero to "int" in order to convert the value to char.
 	SDNNinDigits[1] = ((SDNN%100-SDNN%10)/10)+'0';
 	SDNNinDigits[2] = ((SDNN%1000-SDNN%100)/100)+'0';
 	SDNNinDigits[3] = ((SDNN%10000-SDNN%1000)/1000)+'0';
 	
-	print(' ');
+	print(' '); // space
 	print('S');
 	print('D');
 	

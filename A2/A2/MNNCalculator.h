@@ -1,13 +1,12 @@
-/*
- * MNNCalculator.h
- *
- * Created: 3/06/2015 1:23:47 am
- *  Author: Tanzim
- */ 
-
 
 #ifndef MNNCALCULATOR_H_
 #define MNNCALCULATOR_H_
+
+volatile static unsigned int MNN = 0;
+volatile unsigned int MNNinDigits[4];
+
+
+// this function will calculate and print MNN
 
 void printMNN () {
 	
@@ -49,11 +48,6 @@ void printMNN () {
 	
 	
 }
-
-
-
-
-
 
 
 #endif /* MNNCALCULATOR_H_ */

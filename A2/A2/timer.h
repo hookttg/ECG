@@ -2,7 +2,7 @@
  * timer.h
  *
  * Created: 27/05/2015 9:00:10 pm
- *  Author: Tanzim
+ *  Author: Tauseef (u4858965)
  */ 
 
 
@@ -10,7 +10,6 @@
 #define TIMER_H_
 #include "heartBeatDetector.h"
 
- 
 volatile static int count=0;
 volatile static int sec=0;
 volatile static int min=0;
@@ -22,6 +21,9 @@ volatile static int timeIntervalBetweenLastTwoBeats = 0; // This will track time
 volatile static int timeIntervalForAllBeats[100]; // This vector will store the time intervals for the detected beats
 volatile static int sumOFTimeIntervalsForAllBeatsInLastFourSeconds = 0;
 volatile static int indexOfTimeIntervalVector = 0;
+
+static unsigned int secInDigits[2];		// vector saves the amount of letters (in 2 bits)
+static unsigned int minInDigits[2];
 
 typedef int bool; // boolean value (1=true, 0=False)
 #define true 1
@@ -82,6 +84,31 @@ storeTimeIntervalBetweenLastTwoBeats () {
 	timeIntervalBetweenLastTwoBeats = 0; // start counting again for next beat
 	
 	indexOfTimeIntervalVector++; // this will be set to 0 every time MNN is calculated
+	
+}
+
+
+void printTimeElapsed () {
+	
+	print('T');
+	
+	// the LCD displays data bit by bit. So I am separating the decimal value to 3 bits.
+	
+	int minInBits = min;
+	
+	minInDigits[0] = (minInBits%10)+'0'; // Print function takes input char. So i am adding zero to "int" inorder to convert the value to char.
+	minInDigits[1] = ((minInBits%100-minInBits%10)/10)+'0';
+	
+	print(minInDigits[0]);
+	print(':');
+	
+	int secInBits = sec;
+	secInDigits[0] = (secInBits%10)+'0';
+	secInDigits[1] = ((secInBits%100-secInBits%10)/10)+'0';
+	
+	print(secInDigits[1]);
+	print(secInDigits[0]);
+	print(' '); // space
 	
 }
 

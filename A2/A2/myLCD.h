@@ -2,7 +2,7 @@
  * myLCD.h
  *
  * Created: 27/05/2015 8:30:32 pm
- *  Author: Tanzim
+ *  Author: Tauseef (u4858965)
  */ 
 
 
