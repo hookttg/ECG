@@ -83,10 +83,6 @@ storeTimeIntervalBetweenLastTwoBeats () {
 	
 	timeIntervalBetweenLastTwoBeats = 0; // start counting again for next beat
 	
-	if (indexOfTimeIntervalVector >= 20) {
-		indexOfTimeIntervalVector = 1;
-	}
-	
 	indexOfTimeIntervalVector++;
 	
 }

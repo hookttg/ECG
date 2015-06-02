@@ -17,8 +17,13 @@ static unsigned int beatsInDigits[3]; // this vector stores the digits for time 
 static unsigned int HRinDigits[3];
 volatile static int HR=0;
 volatile unsigned int MNNinDigits[4];
+volatile unsigned int SDNNinDigits[4];
 volatile static unsigned int MNN = 0;
+volatile static unsigned int SDNN = 0;
 volatile static int sumOfTimeIntervals = 0;
+volatile static unsigned int variance = 0;
+
+volatile static bool calculateSDNN = false;
 
 void updateLCD () {
 	
@@ -37,6 +42,8 @@ void updateLCD () {
  	moveToNextLine();
  	
  	printMNN();
+	 
+	printSDNN();
 	
 }
 
@@ -102,23 +109,17 @@ void printHeartRate () {
 
 void printMNN () {
 	
-	sumOfTimeIntervals = 0;
-	
 	if (calculateMNN==true) {
  
- 		int i;
- 		
- 		for (i = 0; i < indexOfTimeIntervalVector; i++) {
-
- 		}
-		
 		MNN = sumOFTimeIntervalsForAllBeats/(heartBeatTrackerForMNN-1); // MNN will be calculated every 15 seconds
 		sumOFTimeIntervalsForAllBeats = 0;
-		numberOfHeartBeats = 0;
+		heartBeatTrackerForMNN = 0;
 		calculateMNN = false;
+		indexOfTimeIntervalVector = 0;
 		
+		calculateSDNN = true;
 	}
-	//MNN = sumOFTimeIntervalsForAllBeats/100;//(numberOfHeartBeats-1);
+	
 	MNNinDigits[0] = (MNN%10)+'0';
 	MNNinDigits[1] = ((MNN%100-MNN%10)/10)+'0';
 	MNNinDigits[2] = ((MNN%1000-MNN%100)/100)+'0';
@@ -127,7 +128,7 @@ void printMNN () {
 	display('M');
 	display('N');
 	display('N');
-	display(':');
+	//display(':');
 	
 	display(MNNinDigits[3]);
 	display('.');
@@ -139,5 +140,43 @@ void printMNN () {
 }
 
 
+void printSDNN () {
+	
+	int i, diff, sq =0;
+	
+	if (calculateSDNN==true) {
+		
+		for (i = 0; i < indexOfTimeIntervalVector; i++) {
+			
+			diff = (timeIntervalForAllBeats[i] - MNN);
+			
+			sq += (diff*diff); // = (diff)^2
+			
+		}
+		
+		variance = sq/(indexOfTimeIntervalVector-1);
+		calculateSDNN = false;
+		SDNN = sqrt(variance);
+		
+	}	
+	
+	
+	
+	SDNNinDigits[0] = (SDNN%10)+'0';
+	SDNNinDigits[1] = ((SDNN%100-SDNN%10)/10)+'0';
+	SDNNinDigits[2] = ((SDNN%1000-SDNN%100)/100)+'0';
+	SDNNinDigits[3] = ((SDNN%10000-SDNN%1000)/1000)+'0';
+	
+	display(' ');
+	display('S');
+	display('D');
+	
+	display(SDNNinDigits[3]);
+	display('.');
+	display(SDNNinDigits[2]);
+	display(SDNNinDigits[1]);
+	display(SDNNinDigits[0]);
+	
+	}
 
 #endif /* PRINTONLCD_H_ */
