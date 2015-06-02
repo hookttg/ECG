@@ -13,7 +13,8 @@
 unsigned char  adc_data;
 int lastSignal=0;
 int currentSignal=0;
-volatile static int heartBeat=0;
+volatile static int numberOfHeartBeats=0; // this will be used to track total number of beats
+volatile static int heartBeatTrackerForMNN = 0; // this will be used to calculate MNN and it will get reset every 4 seconds
 volatile static int heartBeatInLast15Sec=0;
 #include "timer.h"
 
@@ -32,7 +33,7 @@ ISR(ADC_vect)
 			//display('2');
 		}else{
 			lastSignal = currentSignal;
-			heartBeat++;
+			numberOfHeartBeats++;
 			heartBeatInLast15Sec++; // this will be set to 0 at t=15 in timer function
 			storeTimeIntervalBetweenLastTwoBeats();
 			updateLCD();
