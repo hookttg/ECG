@@ -8,11 +8,10 @@ volatile static int sumOfTimeIntervals = 0;
 volatile static unsigned int variance = 0;
 
 
-// this function will calculate and print SDNN
-
-
 void printSDNN () {
 	
+	// this function will calculate and print SDNN every 4 seconds 
+		
 	int i, diff, sq =0;
 	
 	if (calculateSDNN==true) {
@@ -37,7 +36,7 @@ void printSDNN () {
 	
 	// the LCD displays data bit by bit. So I am separating the decimal value to 3 bits.
 	
-	SDNNinDigits[0] = (SDNN%10)+'0';// Print function takes input char. So i am adding zero to "int" in order to convert the value to char.
+	SDNNinDigits[0] = (SDNN%10)+'0'; // Print function takes input char. So i am adding zero to "int" in order to convert the value to char.
 	SDNNinDigits[1] = ((SDNN%100-SDNN%10)/10)+'0';
 	SDNNinDigits[2] = ((SDNN%1000-SDNN%100)/100)+'0';
 	SDNNinDigits[3] = ((SDNN%10000-SDNN%1000)/1000)+'0';

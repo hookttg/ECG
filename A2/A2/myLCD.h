@@ -59,19 +59,22 @@ void clearLCD() {
 
 }
 
-void print( char m ) {
+void print( char letter ) {
 	
 	_delay_ms(5);
+	
 	PORTC=0b00110000;
+	
 	//enable is high, with RS high (I'm going to send data)
 	_delay_ms(5);
-	switch(m)
-	{
+	
+	switch(letter) {
+		
 		case 'A':	{	PORTD=0b10000010;
-	break;		}
-	case 'B': 	{	PORTD=0B01000010;
-break;		}
-case 'C':   {	PORTD=0B11000010;
+							break;		}
+		case 'B': 	{	PORTD=0B01000010;
+							break;		}
+		case 'C':   {	PORTD=0B11000010;
 							break;		}
 		case 'D':   {	PORTD=0b00100010;
 							break;		}
@@ -119,31 +122,31 @@ case 'C':   {	PORTD=0B11000010;
 							break;		}
 		case 'Z':	{	PORTD=0b01011010; 
 							break;		}
-		case '1':	{	PORTD=0b10001100; //1
+		case '1':	{	PORTD=0b10001100; 
 							break;		}		
-		case '2':	{	PORTD=0b01001100; //2
+		case '2':	{	PORTD=0b01001100; 
 							break;		}				
-		case '3':	{	PORTD=0b11001100; //3
+		case '3':	{	PORTD=0b11001100; 
 							break;		}						
-		case '4':   {	PORTD=0b00101100; //4
+		case '4':   {	PORTD=0b00101100; 
 							break;		}						
-		case '5':   {	PORTD=0b10101100; //5
+		case '5':   {	PORTD=0b10101100; 
 							break;		}						
-		case '6':	{	PORTD=0b01101100; //6
+		case '6':	{	PORTD=0b01101100; 
 							break;		}					
-		case '7':	{	PORTD=0b11101100; //7
+		case '7':	{	PORTD=0b11101100; 
 							break;		}	
-        case '8':	{	PORTD=0b00011100; //8
+        case '8':	{	PORTD=0b00011100; 
 							break;		}							
-		case '9':	{	PORTD=0b10011100; //9
+		case '9':	{	PORTD=0b10011100; 
 							break;		}					
-		case '0':	{	PORTD=0b00001100; //0
+		case '0':	{	PORTD=0b00001100; 
 							break;		}							 
-		case ':':	{	PORTD=0b01011100; //:
+		case ':':	{	PORTD=0b01011100; 
 							break;		} 
-		case ' ':	{	PORTD=0b00000100; //space
+		case ' ':	{	PORTD=0b00000100; 
 							break;		} 		 							
-		case '.':	{	PORTD=0b01110100; //.
+		case '.':	{	PORTD=0b01110100; 
 							break;		}
 		 }	
 							
@@ -155,7 +158,7 @@ case 'C':   {	PORTD=0B11000010;
  }	
 
 
-void moveToNextLine () {
+void moveToNextLine () { // move to next line on the LCD
 	
 	_delay_ms(5);
 	PORTC=0b00100000;

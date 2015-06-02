@@ -12,7 +12,7 @@ void initialize () {
 	TCNT0 = 0;			// set 0 as initial value of timer0
 	TIMSK = 0x01;	    //unmask  timer0 overflow interrupt
 	
-	clearLCD();	// call this function to move cursor to first (initial) position
+	clearLCD();	// initialize LCD and clear screen
 	
 	asm("sei");   // enable global interrupt
 	

@@ -6,14 +6,14 @@ volatile static unsigned int MNN = 0;
 volatile unsigned int MNNinDigits[4];
 
 
-// this function will calculate and print MNN
-
 void printMNN () {
 	
-	if (calculateMNN==true) {
+	// this function will calculate and print MNN
+	
+	if (calculateMNN==true) { 
 		
 		int i = 1;
-		// i will start from 1, because I am excluding the time it took to get the first beat
+	 //  "i" starts from 1, because I am excluding the time it took to get the first beat
 		
 		for (i = 1; i < indexOfTimeIntervalVector; i++) {
 			
@@ -26,11 +26,14 @@ void printMNN () {
 		sumOFTimeIntervalsForAllBeatsInLastFourSeconds = 0;
 		
 		heartBeatTrackerForMNN = 0;
-		calculateMNN = false;
+		calculateMNN = false;  
 		calculateSDNN = true;
+		
 	}
 	
-	MNNinDigits[0] = (MNN%10)+'0';
+	// the LCD displays data bit by bit. So I am separating the decimal value to 3 bits.
+	
+	MNNinDigits[0] = (MNN%10)+'0'; // Print function takes input char. So i am adding zero to "int" in order to convert the value to char.
 	MNNinDigits[1] = ((MNN%100-MNN%10)/10)+'0';
 	MNNinDigits[2] = ((MNN%1000-MNN%100)/100)+'0';
 	MNNinDigits[3] = ((MNN%10000-MNN%1000)/1000)+'0';
@@ -38,7 +41,6 @@ void printMNN () {
 	print('M');
 	print('N');
 	print('N');
-	//display(':');
 	
 	print(MNNinDigits[3]);
 	print('.');

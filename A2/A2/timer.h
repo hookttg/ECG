@@ -11,9 +11,8 @@
 #include "heartBeatDetector.h"
 
 volatile static int count=0;
-volatile static int sec=0;
-volatile static int min=0;
-volatile static int hours=0;
+volatile static int sec=0; // seconds
+volatile static int min=0; // minutes
 volatile static int timerForCalculatingHR =0;
 volatile static int timerForCalculatingMNN = 0;
 
@@ -33,18 +32,18 @@ volatile static bool calculateHeartRate = false; // This will be set to true eve
 volatile static bool calculateMNN = false;
 volatile static bool calculateSDNN = false;
 
-ISR(TIMER0_OVF_vect)
-{
-	TCNT0=241;
+ISR(TIMER0_OVF_vect) {
+	
+	TCNT0 = 241; 
 	count++;
-	timeIntervalBetweenLastTwoBeats++;
+	timeIntervalBetweenLastTwoBeats++; 
 	
 	if (count>=1000){
 		sec++;
 		timerForCalculatingHR++; // HR will be calculated when the value for this is 15.
 		timerForCalculatingMNN++;
 		count=0;
-		updateLCD();
+		updateLCD(); // updates LCD every second
 	}
 	
 	if (timerForCalculatingHR==15){ // this will assist HR calculator to keep track of beats in last 15 seconds
@@ -57,18 +56,13 @@ ISR(TIMER0_OVF_vect)
 	if (timerForCalculatingMNN==4) {
 		
 		calculateMNN = true;
-		timerForCalculatingMNN = 0;
+		timerForCalculatingMNN = 0; // reset this timer 
 		
 	}
 	
 	if (sec>=60){
 		min++;
 		sec=0;
-	}
-	
-	if (min>=60){
-		hours++;
-		min=0;
 	}
 	
 }
