@@ -34,6 +34,7 @@ ISR(ADC_vect)
 		}else{
 			lastSignal = currentSignal;
 			numberOfHeartBeats++;
+			heartBeatTrackerForMNN++;
 			heartBeatInLast15Sec++; // this will be set to 0 at t=15 in timer function
 			storeTimeIntervalBetweenLastTwoBeats();
 			updateLCD();

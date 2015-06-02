@@ -20,7 +20,7 @@ volatile static int timerForCalculatingMNN = 0;
 
 volatile static int timeIntervalBetweenLastTwoBeats = 0; // This will track time for R-R interval. I will store these values in an array and then calculate MNN/MRR
 volatile static int timeIntervalForAllBeats[100]; // This vector will store the time intervals for the detected beats
-volatile static int sumOFTimeIntervalsForAllBeats = 0;
+volatile static int sumOFTimeIntervalsForAllBeatsInLastFourSeconds = 0;
 volatile static int indexOfTimeIntervalVector = 0;
 
 typedef int bool; // boolean value (1=true, 0=False)
@@ -29,6 +29,7 @@ typedef int bool; // boolean value (1=true, 0=False)
 
 volatile static bool calculateHeartRate = false; // This will be set to true every 15 seconds and HR will be calculated
 volatile static bool calculateMNN = false;
+volatile static bool calculateSDNN = false;
 
 ISR(TIMER0_OVF_vect)
 {
@@ -71,9 +72,6 @@ ISR(TIMER0_OVF_vect)
 }
 
 storeTimeIntervalBetweenLastTwoBeats () {
-	// the next line will be used to calculate MNN
-	sumOFTimeIntervalsForAllBeats += timeIntervalBetweenLastTwoBeats;
-	
 	
 	// the next few lines will be used for calculating SD
 	
@@ -83,7 +81,7 @@ storeTimeIntervalBetweenLastTwoBeats () {
 	
 	timeIntervalBetweenLastTwoBeats = 0; // start counting again for next beat
 	
-	indexOfTimeIntervalVector++;
+	indexOfTimeIntervalVector++; // this will be set to 0 every time MNN is calculated
 	
 }
 

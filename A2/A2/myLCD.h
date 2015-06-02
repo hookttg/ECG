@@ -9,42 +9,15 @@
 #ifndef MYLCD_H_
 #define MYLCD_H_
 
-void startLCD()  // this function is used to initial LCD screen and it will be called in initial steps
-{
-	//setting up port direction on microprocessor
+
+void clearLCD() {
+	
 	DDRC=0b00110000; //portc has RS on bit 4, and enable on bit 5
 	DDRD=0xFF;
-	_delay_ms(100); //wait a little bit of time for the LCD to power up properly.
+	_delay_ms(200); //wait a little bit of time for the LCD to power up properly.
 	
-	//initialisation of LCD screen
-	PORTC=0b00100000; //enable is high, RS is low (I'm going to send a command)
-	_delay_ms(2);
-	PORTD=0b00011100; //command1: function set (5x7 dot format, 2 line mode, 8-bit data)
-	_delay_ms(2);
-	PORTC=0b00000000; //enable is low, RS stays low (it will execute the command now)
-	_delay_ms(2);
-	PORTC=0b00100000; //enable is high, RS is low (I'm going to send another command)
-	_delay_ms(2);
-	PORTD=0b11110000; //command2: display on / cursor (Blink ON, underline ON, Display ON - you can use different settings if you like)
-	_delay_ms(2);
-	PORTC=0b00000000; //enable is low,  RS stays low (it will execute the command now)
-	_delay_ms(2);
-	PORTC=0b00100000; //enable is high, RS is low (I'm going to send another command)
-	_delay_ms(2);
-	PORTD=0b01100000; //command 3: character entry mode with increment and display shift OFF
-	_delay_ms(2);
-	PORTC=0b00000000; //enable is low, RS stays low (it will execute the command now)
+	//initialization of LCD screen
 	
-	
-	//now i am going to enter a real character
-}
-void returnLCD()   // this function is used to move the cursor to first (initial) position
-{
-	DDRC=0b00110000; //portc has RS on bit 4, and enable on bit 5
-	DDRD=0xFF;
-	_delay_ms(100); //wait a little bit of time for the LCD to power up properly.
-	
-	//initialisation of LCD screen
 	PORTC=0b00100000; //enable is high, RS is low (I'm going to send a command)
 	_delay_ms(2);
 	PORTD=0b00011100; //command1: function set (5x7 dot format, 2 line mode, 8-bit data)
@@ -86,9 +59,8 @@ void returnLCD()   // this function is used to move the cursor to first (initial
 
 }
 
-void display( char m )  // this function is used to display letters.	Input: variable m, type: char
-// For example, display('A') will display letter 'A' on LCD screen
-{
+void print( char m ) {
+	
 	_delay_ms(5);
 	PORTC=0b00110000;
 	//enable is high, with RS high (I'm going to send data)
@@ -175,12 +147,12 @@ case 'C':   {	PORTD=0B11000010;
 							break;		}
 		 }	
 							
-							_delay_ms(5);
-							PORTC=0b00010000; //enable is low, with RS high
-							_delay_ms(5);
-							PORTC=0b00110000; //enable is high, with RS high (ready to send more data)
+		_delay_ms(5);
+		PORTC=0b00010000; //enable is low, with RS high
+		_delay_ms(5);
+		PORTC=0b00110000; //enable is high, with RS high (ready to send more data)
+ 
  }	
-
 
 
 void moveToNextLine () {
