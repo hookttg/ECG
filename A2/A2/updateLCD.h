@@ -1,13 +1,13 @@
 /*
- * printOnLCD.h
+ * updateLCD.h
  *
  * Created: 27/05/2015 9:19:17 pm
  *  Author: Tauseef (u4858965)
  */ 
 
 
-#ifndef PRINTONLCD_H_
-#define PRINTONLCD_H_
+#ifndef updateLCD_H_
+#define updateLCD_H_
 #include "heartBeatDetector.h"
 
 #include "MNNCalculator.h"
@@ -18,7 +18,7 @@ void updateLCD () { // this function will be used to update the LCD when new dat
 
 		clearLCD(); // this function is from myLCD.h
 
-		printTimeElapsed(); // this function is from printOnLCD.h
+		printTimeElapsed(); // this function is from updateLCD.h
 
 		printNumberOfBeats(); // this function is from heartBeatDetector.h
 
@@ -34,4 +34,4 @@ void updateLCD () { // this function will be used to update the LCD when new dat
 
 
 
-#endif /* PRINTONLCD_H_ */
+#endif /* updateLCD_H_ */

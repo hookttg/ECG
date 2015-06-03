@@ -19,7 +19,7 @@
 #include "myLCD.h"
 #include "heartBeatDetector.h"
 #include "timer.h"
-#include "printOnLCD.h"
+#include "updateLCD.h"
 #include "initialize.h"
 
 
@@ -31,19 +31,18 @@ int main(void) {
 		
 		clearLCD(); // this function is from myLCD.h
 		
-		printTimeElapsed(); // this function is from printOnLCD.h
+		printTimeElapsed(); // this function is from updateLCD.h  This will start the timer and update the LCD every second
 		
-		printNumberOfBeats(); // this function is from heartBeatDetector.h
+		printNumberOfBeats(); // this function is from heartBeatDetector.h  This function will count the number of beats and print the value on the LCD everytime a new value is detected
 		
-		printHeartRate(); // this function is from heartBeatDetector.h
+		printHeartRate(); // this function is from heartBeatDetector.h  This function will calculate the HR every 15 sec and print the value on LCD
 		
 		moveToNextLine(); // this function is from myLCD.h
 		
-		printMNN(); // this function is from MNNCalculator.h
+		printMNN(); // this function is from MNNCalculator.h  This will calculate MNN every 4 sec and print the value on LCD
 		
-		printSDNN(); // this function is from SdnnCalculator.h
+		printSDNN(); // this function is from SdnnCalculator.h  This will calculate SDNN every 4 sec and print it on the LCD
 		
 	}
 	
-
 }

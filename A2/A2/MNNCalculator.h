@@ -13,7 +13,7 @@ void printMNN () {
 	if (calculateMNN==true) { 
 		
 		int i = 1;
-	 //  "i" starts from 1, because I am excluding the time it took to get the first beat
+		//  "i" starts from 1, because I am excluding the time it took to get the first beat
 		
 		for (i = 1; i < indexOfTimeIntervalVector; i++) {
 			

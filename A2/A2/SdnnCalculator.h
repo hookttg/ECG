@@ -4,7 +4,7 @@
 
 volatile unsigned int SDNNinDigits[4];
 volatile static unsigned int SDNN = 0;
-volatile static int sumOfTimeIntervals = 0;
+volatile static unsigned int sumOfTimeIntervals = 0;
 volatile static unsigned int variance = 0;
 
 
